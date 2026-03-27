@@ -1,7 +1,6 @@
 package com.codewithmosh.store.bdd.stepdefs;
 
 import com.codewithmosh.store.bdd.TestContext;
-import com.codewithmosh.store.orders.OrderRepository;
 import com.codewithmosh.store.orders.PaymentStatus;
 import com.codewithmosh.store.payments.CheckoutSession;
 import com.codewithmosh.store.payments.PaymentGateway;
@@ -13,6 +12,7 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@Component
 public class CheckoutStepDefs {
 
     @Autowired
@@ -30,9 +31,6 @@ public class CheckoutStepDefs {
 
     @Autowired
     private PaymentGateway paymentGateway;
-
-    @Autowired
-    private OrderRepository orderRepository;
 
     @When("the user sends a checkout request with their cart ID")
     public void checkout() {
