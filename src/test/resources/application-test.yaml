@@ -1,0 +1,14 @@
+spring:
+  jwt:
+    secret: test-jwt-secret-key-for-testing-only-minimum-256-bits-xxxxxxxxxxxxxx
+    accessTokenExpiration: 7200
+    refreshTokenExpiration: 604800
+  jpa:
+    show-sql: false
+  flyway:
+    clean-disabled: false
+    clean-on-validation-error: true
+websiteUrl: http://localhost:8080
+stripe:
+  secretKey: sk_test_dummy_key_for_testing_purposes_only
+  webhookSecretKey: whsec_dummy_key_for_testing_purposes_only

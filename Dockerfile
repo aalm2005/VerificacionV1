@@ -18,7 +18,7 @@ FROM eclipse-temurin:17-jre-noble
 WORKDIR /app
 
 # Create user and group
-RUN groupadd -r app & useradd -r -g app app
+RUN groupadd -r app && useradd -r -g app app
 
 # Copy the jar from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
