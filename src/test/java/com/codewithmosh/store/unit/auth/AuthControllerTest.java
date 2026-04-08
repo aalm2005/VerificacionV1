@@ -27,6 +27,7 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -88,12 +89,15 @@ class AuthControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(cuerpo)))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.token").isNotEmpty())
+                    .andExpect(jsonPath("$.token").value(tokenAcceso.toString()))
                     .andExpect(cookie().exists("refreshToken"))
+                    .andExpect(cookie().value("refreshToken", tokenRenovacion.toString()))
                     .andExpect(cookie().httpOnly("refreshToken", true))
                     .andExpect(cookie().path("refreshToken", "/auth/refresh"))
                     .andExpect(cookie().secure("refreshToken", true))
                     .andExpect(cookie().maxAge("refreshToken", 604800));
+
+            verify(authService).login(any());
         }
 
         @Test
@@ -152,6 +156,42 @@ class AuthControllerTest {
                     .andExpect(status().isBadRequest())
                     .andExpect(jsonPath("$.password").exists());
         }
+
+        @Test
+        @DisplayName("la respuesta indica que la solicitud es inválida (Código 400) cuando el correo es null")
+        void retorna400_cuandoCorreoEsNull() throws Exception {
+            LoginRequest cuerpo = new LoginRequest();
+            cuerpo.setEmail(null);
+            cuerpo.setPassword("secreto123");
+
+            mockMvc.perform(post("/auth/login")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(cuerpo)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.email").exists());
+        }
+
+        @Test
+        @DisplayName("la respuesta indica que la solicitud es inválida (Código 400) cuando la contraseña es null")
+        void retorna400_cuandoContraseñaEsNull() throws Exception {
+            LoginRequest cuerpo = new LoginRequest();
+            cuerpo.setEmail("alice@example.com");
+            cuerpo.setPassword(null);
+
+            mockMvc.perform(post("/auth/login")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(cuerpo)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.password").exists());
+        }
+
+        @Test
+        @DisplayName("la respuesta indica que la solicitud es inválida (Código 400) cuando no se envía cuerpo en la solicitud")
+        void retorna400_cuandoNoCuerpoEnviado() throws Exception {
+            mockMvc.perform(post("/auth/login")
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest());
+        }
     }
 
     // -----------------------------------------------------------------------
@@ -171,7 +211,9 @@ class AuthControllerTest {
             mockMvc.perform(post("/auth/refresh")
                             .cookie(new Cookie("refreshToken", "token-renovacion-valido")))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.token").isNotEmpty());
+                    .andExpect(jsonPath("$.token").value(nuevoToken.toString()));
+
+            verify(authService).refreshAccessToken("token-renovacion-valido");
         }
 
         @Test
@@ -215,6 +257,9 @@ class AuthControllerTest {
                     .andExpect(jsonPath("$.id").value(1L))
                     .andExpect(jsonPath("$.name").value("Alice"))
                     .andExpect(jsonPath("$.email").value("alice@example.com"));
+
+            verify(authService).getCurrentUser();
+            verify(userMapper).toDto(usuario);
         }
 
         @Test

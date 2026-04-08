@@ -11,6 +11,7 @@ import com.codewithmosh.store.users.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -28,6 +29,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,6 +66,11 @@ class AuthServiceTest {
                 .email("alice@example.com")
                 .role(Role.USER)
                 .build();
+    }
+
+    @AfterEach
+    void tearDown() {
+        SecurityContextHolder.clearContext();
     }
 
     // -----------------------------------------------------------------------
@@ -150,6 +157,21 @@ class AuthServiceTest {
 
             assertThat(response.getAccessToken()).isSameAs(accessJwt);
             assertThat(response.getRefreshToken()).isSameAs(refreshJwt);
+            verify(jwtService).generateAccessToken(testUser);
+            verify(jwtService).generateRefreshToken(testUser);
+        }
+
+        @Test
+        @DisplayName("throws NoSuchElementException when user is not found in repository after successful authentication")
+        void throwsNoSuchElement_whenUserNotFoundAfterAuthentication() {
+            LoginRequest request = new LoginRequest();
+            request.setEmail("ghost@example.com");
+            request.setPassword("secret");
+
+            when(userRepository.findByEmail("ghost@example.com")).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> authService.login(request))
+                    .isInstanceOf(NoSuchElementException.class);
         }
 
         @Test
@@ -229,6 +251,17 @@ class AuthServiceTest {
             assertThatThrownBy(() -> authService.refreshAccessToken("expired-token"))
                     .isInstanceOf(BadCredentialsException.class)
                     .hasMessageContaining("Invalid refresh token");
+        }
+
+        @Test
+        @DisplayName("throws NoSuchElementException when user no longer exists in the repository")
+        void throwsNoSuchElement_whenUserNoLongerExists() {
+            Jwt validJwt = buildJwt(999L, 86_400_000);
+            when(jwtService.parseToken("orphaned-token")).thenReturn(validJwt);
+            when(userRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThatThrownBy(() -> authService.refreshAccessToken("orphaned-token"))
+                    .isInstanceOf(NoSuchElementException.class);
         }
     }
 }
