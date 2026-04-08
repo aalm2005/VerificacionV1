@@ -6,7 +6,15 @@
       "Bash(python3:*)",
       "Bash(/c/Users/aalm2/AppData/Local/Programs/Python/Python311/python.exe -m pip install pdfminer.six --quiet)",
       "Bash(/c/Users/aalm2/AppData/Local/Programs/Python/Python311/python.exe -c \"\nfrom pdfminer.high_level import extract_text\ntext = extract_text\\('/c/Users/aalm2/Downloads/Eriksson_Oscar_Söderlund_Anna.pdf'\\)\nprint\\(text[:10000]\\)\n\")",
-      "Bash(/c/Users/aalm2/AppData/Local/Programs/Python/Python311/python.exe -c \"\nfrom pdfminer.high_level import extract_text\ntext = extract_text\\('C:/Users/aalm2/Downloads/Eriksson_Oscar_Söderlund_Anna.pdf'\\)\nprint\\(text[:10000]\\)\n\")"
+      "Bash(/c/Users/aalm2/AppData/Local/Programs/Python/Python311/python.exe -c \"\nfrom pdfminer.high_level import extract_text\ntext = extract_text\\('C:/Users/aalm2/Downloads/Eriksson_Oscar_Söderlund_Anna.pdf'\\)\nprint\\(text[:10000]\\)\n\")",
+      "Bash(mvn test:*)",
+      "Read(//mnt/c/Users/aalm2/**)",
+      "Bash(./mvnw test:*)",
+      "Bash(cmd:*)",
+      "Bash(powershell:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
