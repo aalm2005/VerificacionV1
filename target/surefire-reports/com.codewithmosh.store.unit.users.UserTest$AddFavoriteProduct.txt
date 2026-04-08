@@ -1,0 +1,31 @@
+-------------------------------------------------------------------------------
+Test set: com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.013 s <<< FAILURE! -- in com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct
+com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct.addsMultipleDistinctProducts -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.Set.add(Object)" because "this.favoriteProducts" is null
+	at com.codewithmosh.store.users.User.addFavoriteProduct(User.java:66)
+	at com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct.addsMultipleDistinctProducts(UserTest.java:159)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct.doesNotDuplicate_sameProduct -- Time elapsed: 0.002 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.Set.add(Object)" because "this.favoriteProducts" is null
+	at com.codewithmosh.store.users.User.addFavoriteProduct(User.java:66)
+	at com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct.doesNotDuplicate_sameProduct(UserTest.java:147)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct.addsProductToFavorites -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.Set.add(Object)" because "this.favoriteProducts" is null
+	at com.codewithmosh.store.users.User.addFavoriteProduct(User.java:66)
+	at com.codewithmosh.store.unit.users.UserTest$AddFavoriteProduct.addsProductToFavorites(UserTest.java:137)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

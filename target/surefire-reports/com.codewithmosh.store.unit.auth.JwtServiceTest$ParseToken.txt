@@ -1,0 +1,57 @@
+-------------------------------------------------------------------------------
+Test set: com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.199 s <<< FAILURE! -- in com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken
+com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken.returnsJwt_forValidToken -- Time elapsed: 0.156 s <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.codewithmosh.store.unit.auth.JwtServiceTest.setUp(JwtServiceTest.java:47)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+	at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:197)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken.returnsNull_forInvalidToken -- Time elapsed: 0.010 s <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.codewithmosh.store.unit.auth.JwtServiceTest.setUp(JwtServiceTest.java:46)
+  2. -> at com.codewithmosh.store.unit.auth.JwtServiceTest.setUp(JwtServiceTest.java:47)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+	at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:197)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken.returnsNull_forTokenSignedWithDifferentKey -- Time elapsed: 0.017 s <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.codewithmosh.store.unit.auth.JwtServiceTest.setUp(JwtServiceTest.java:47)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+	at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:197)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken.returnsNull_forBlankString -- Time elapsed: 0.010 s <<< ERROR!
+java.lang.IllegalArgumentException: CharSequence cannot be null or empty.
+	at io.jsonwebtoken.lang.Assert.hasText(Assert.java:151)
+	at io.jsonwebtoken.impl.io.AbstractParser.parse(AbstractParser.java:28)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseSignedClaims(DefaultJwtParser.java:830)
+	at com.codewithmosh.store.auth.JwtService.getClaims(JwtService.java:39)
+	at com.codewithmosh.store.auth.JwtService.parseToken(JwtService.java:28)
+	at com.codewithmosh.store.unit.auth.JwtServiceTest$ParseToken.returnsNull_forBlankString(JwtServiceTest.java:162)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
